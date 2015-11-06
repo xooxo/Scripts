@@ -1,12 +1,17 @@
+#!/usr/bin
 #####BATTLESHIPS-Mert ARIKAN#####
+#
+
 import random
 
 comp_ships=[]
 pc_ships=[]
 numbers=[1,2,3,4,5,6,7,8,9,10]
 letters=["A","B","C","D","E","F"]
-comp_guess=[]#for saving previous guesses
+comp_guess=[] #for saving previous guesses
+order=["player"] #determine whose order.
 
+    
 ##Computer Ships##
 i=0
 while i!=5:
@@ -38,17 +43,22 @@ while j!=5:
     
 ##FIGHT!##
 while len(pc_ships)!=0 or len(comp_ships)!=0:
-    shot=raw_input("Please enter coordinate to shoot> ")
-    if shot=="":
-        print "There is not any coordinate like this."
-    elif not shot[0].upper() in letters or not shot[1] in str(numbers):
-        print("There is not any coordinate like this!")
-    elif shot.upper() in comp_ships:
-        print("You shoot!")
-        comp_ships.remove(shot)
-        print("Computer have %d ship(s)!" %(len(comp_ships)))
-    elif not shot.upper() in comp_ships:
-        print("You miss!")
+    while order==["player"]:
+        shot=raw_input("Please enter coordinate to shoot> ")
+        if shot=="":
+            print "There is not any coordinate like this."
+        elif not shot[0].upper() in letters or not shot[1] in str(numbers):
+            print("There is not any coordinate like this!")
+        elif shot.upper() in comp_ships:
+            print("You shoot!")
+            comp_ships.remove(shot)
+            print("Computer have %d ship(s)!" %(len(comp_ships)))
+        elif not shot.upper() in comp_ships:
+            print("You miss!")
+            order.append("opponent")
+            order.remove("player")
+
+    while order==["opponent"]:
         comp_choice=random.choice(letters)+str(random.choice(numbers))
         ####Time to add some action! :)###
         if not comp_choice in comp_guess:
@@ -65,6 +75,8 @@ while len(pc_ships)!=0 or len(comp_ships)!=0:
             print("You have %d ship(s)!" %(len(pc_ships)))
         elif not comp_choice in pc_ships:
             print("Comp shoot %s ;but miss!" %(comp_choice))
+            order.append("player")
+            order.remove("opponent")
 
     if len(pc_ships)==0:
         print("You lose!")
@@ -76,5 +88,3 @@ while len(pc_ships)!=0 or len(comp_ships)!=0:
 
 
 
-
-            

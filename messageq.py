@@ -39,18 +39,3 @@ class MessageQueue:
         else:
             del self.queue[0]
 
-
-#deneme
-q = MessageQueue("queue",5)
-
-class A:
-    def __init__(self,_m):
-        self.m = _m
-        self.m.enqueue("helloA",2)
-class B:
-    def __init__(self,_m):
-        self.m=_m
-        self.m.enqueue("helloB",3)
-
-a = A(q)
-b = B(q)
